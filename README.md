@@ -1,6 +1,8 @@
 ## TP1 Commande MCC basique
 ## Génération de 4 PWM
+
 ![image](https://github.com/user-attachments/assets/595a7202-ebe4-4573-9a65-71ace011c0eb)
+
 Fréquence de la PWM : 20kHz
 Temps mort minimum : à voir selon la datasheet des transistors (faire valider la valeur)
 Résolution minimum : 10bits.
