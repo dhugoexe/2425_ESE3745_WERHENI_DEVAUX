@@ -29,6 +29,9 @@ Conversion de tous les caractères représentant des chiffres XXXX en nombre ent
 Vérification de la valeur (si la valeur est supérieur au maximum autorisé (bien spécifier cette valeur), on l'abaisse à cette valeur),
 Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
 
+![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/6edce119-dbec-453e-9168-16da37e74e04)
+
+
 ![image](https://github.com/user-attachments/assets/fc4c3920-518f-4363-8949-afcde5f18c99)
 ![IMG_0243](https://github.com/user-attachments/assets/e43b6472-9f8c-4ed9-a330-3deb1754be1c)
 ![IMG_0238](https://github.com/user-attachments/assets/e5b2945f-b053-441c-bef5-8e218e16560f)
