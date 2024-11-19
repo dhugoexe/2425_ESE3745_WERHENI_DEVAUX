@@ -38,7 +38,7 @@ Application de cette vitesse au moteur à travers le registre gérant le rapport
 
 
 ## tp2
-## Commandes de vitesse 
+### Commandes de vitesse 
 
 Rajouter quelques fonctionnalités à votre projet :
 
@@ -57,6 +57,10 @@ Resultat:
 ![IMG_0252](https://github.com/user-attachments/assets/4d588991-52a2-487e-943b-050a3d951e08)
 ![IMG_0251](https://github.com/user-attachments/assets/f6ee5d4b-93b6-4b1c-8225-6bceb2372b45)
 ![IMG_0250](https://github.com/user-attachments/assets/c0e4051a-b270-4556-bc33-ba1938673bc8)
+
+### Mesures du courant
+
+Pour mesurer le courant, on utilise l'ADC. Selon les schématics de la carte, la mesure du courant se fait grace aux composants xxx, qui dans notre cas, est branché sur le PIN__ (ADC1)
 
 ## TP3
 
