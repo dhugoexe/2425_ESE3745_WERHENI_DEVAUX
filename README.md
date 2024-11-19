@@ -51,6 +51,13 @@ Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, ma
 Resultat:
 ![image](https://github.com/user-attachments/assets/69a8a22f-f437-4978-85f0-92d08a0418be)
 
+![IMG_0255](https://github.com/user-attachments/assets/289d3670-bf3f-4150-846c-fbd5f82d5eea)
+![IMG_0254](https://github.com/user-attachments/assets/32c70d61-40ad-4e78-b799-5b86022b2652)
+![IMG_0253](https://github.com/user-attachments/assets/debf6df4-90cc-4812-b42c-67375ba65a98)
+![IMG_0252](https://github.com/user-attachments/assets/4d588991-52a2-487e-943b-050a3d951e08)
+![IMG_0251](https://github.com/user-attachments/assets/f6ee5d4b-93b6-4b1c-8225-6bceb2372b45)
+![IMG_0250](https://github.com/user-attachments/assets/c0e4051a-b270-4556-bc33-ba1938673bc8)
+
 ## TP3
 
 
