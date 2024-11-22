@@ -65,13 +65,7 @@ typedef enum
     (__DMA_HANDLE__).Parent = (__HANDLE__);                          \
   } while(0)
 
-<<<<<<< HEAD
-#if !defined(UNUSED)
-#define UNUSED(X) (void)X         /* To avoid gcc/g++ warnings */
-#endif /* UNUSED */
-=======
 #define UNUSED(X) (void)X
->>>>>>> master
 
 /** @brief Reset the Handle's State field.
   * @param __HANDLE__: specifies the Peripheral Handle.
