@@ -61,8 +61,8 @@ all: main-build
 main-build: NUCLEO-G474RET6-Inverter_Pinout.elf secondary-outputs
 
 # Tool invocations
-NUCLEO-G474RET6-Inverter_Pinout.elf NUCLEO-G474RET6-Inverter_Pinout.map: $(OBJS) $(USER_OBJS) D:\Users\Dell\Desktop\anglais\NUCLEO-G474RET6-Inverter_Pinout\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "NUCLEO-G474RET6-Inverter_Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Users\Dell\Desktop\anglais\NUCLEO-G474RET6-Inverter_Pinout\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NUCLEO-G474RET6-Inverter_Pinout.map" -Wl,--gc-sections -static -u_printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+NUCLEO-G474RET6-Inverter_Pinout.elf NUCLEO-G474RET6-Inverter_Pinout.map: $(OBJS) $(USER_OBJS) D:\Users\Dell\Desktop\2425_ESE3745_WERHENI_DEVAUX\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "NUCLEO-G474RET6-Inverter_Pinout.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Users\Dell\Desktop\2425_ESE3745_WERHENI_DEVAUX\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NUCLEO-G474RET6-Inverter_Pinout.map" -Wl,--gc-sections -static -u_printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
