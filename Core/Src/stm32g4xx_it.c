@@ -6,11 +6,7 @@
   ******************************************************************************
   * @attention
   *
-<<<<<<< HEAD
-  * Copyright (c) 2024 STMicroelectronics.
-=======
   * Copyright (c) 2023 STMicroelectronics.
->>>>>>> master
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -59,12 +55,12 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-<<<<<<< HEAD
-=======
+extern DMA_HandleTypeDef hdma_adc1;
+extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
 extern TIM_HandleTypeDef htim6;
->>>>>>> master
 
 /* USER CODE BEGIN EV */
 
@@ -82,11 +78,7 @@ void NMI_Handler(void)
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-<<<<<<< HEAD
-   while (1)
-=======
   while (1)
->>>>>>> master
   {
   }
   /* USER CODE END NonMaskableInt_IRQn 1 */
@@ -199,11 +191,7 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
-<<<<<<< HEAD
-  HAL_IncTick();
-=======
 
->>>>>>> master
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
@@ -216,8 +204,35 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32g4xx.s).                    */
 /******************************************************************************/
 
-<<<<<<< HEAD
-=======
+/**
+  * @brief This function handles DMA1 channel1 global interrupt.
+  */
+void DMA1_Channel1_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
+
+  /* USER CODE END DMA1_Channel1_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_adc1);
+  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles ADC1 and ADC2 global interrupt.
+  */
+void ADC1_2_IRQHandler(void)
+{
+  /* USER CODE BEGIN ADC1_2_IRQn 0 */
+
+  /* USER CODE END ADC1_2_IRQn 0 */
+  HAL_ADC_IRQHandler(&hadc1);
+  HAL_ADC_IRQHandler(&hadc2);
+  /* USER CODE BEGIN ADC1_2_IRQn 1 */
+
+  /* USER CODE END ADC1_2_IRQn 1 */
+}
+
 /**
   * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
   */
@@ -274,7 +289,6 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 
->>>>>>> master
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */

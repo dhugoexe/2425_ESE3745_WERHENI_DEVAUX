@@ -188,20 +188,6 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint
   {
     pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
 
-<<<<<<< HEAD
-    /* Deactivate the data cache if they are activated to avoid data misbehavior */
-    if(READ_BIT(FLASH->ACR, FLASH_ACR_DCEN) != 0U)
-    {
-      /* Disable data cache  */
-      __HAL_FLASH_DATA_CACHE_DISABLE();
-      pFlash.CacheToReactivate = FLASH_CACHE_DCACHE_ENABLED;
-    }
-    else
-    {
-      pFlash.CacheToReactivate = FLASH_CACHE_DISABLED;
-    }
-=======
->>>>>>> master
     if (TypeProgram == FLASH_TYPEPROGRAM_DOUBLEWORD)
     {
       /* Program double-word (64-bit) at a specified address */
@@ -232,12 +218,6 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint
     {
       CLEAR_BIT(FLASH->CR, prog_bit);
     }
-<<<<<<< HEAD
-
-    /* Flush the caches to be sure of the data consistency */
-    FLASH_FlushCaches();
-=======
->>>>>>> master
   }
 
   /* Process Unlocked */
@@ -271,21 +251,6 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
   /* Reset error code */
   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
 
-<<<<<<< HEAD
-  /* Deactivate the data cache if they are activated to avoid data misbehavior */
-  if(READ_BIT(FLASH->ACR, FLASH_ACR_DCEN) != 0U)
-  {
-    /* Disable data cache  */
-    __HAL_FLASH_DATA_CACHE_DISABLE();
-    pFlash.CacheToReactivate = FLASH_CACHE_DCACHE_ENABLED;
-  }
-  else
-  {
-    pFlash.CacheToReactivate = FLASH_CACHE_DISABLED;
-  }
-
-=======
->>>>>>> master
   /* Wait for last operation to be completed */
   status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
 
@@ -363,11 +328,7 @@ void HAL_FLASH_IRQHandler(void)
     __HAL_FLASH_CLEAR_FLAG(error);
 
     /* Flush the caches to be sure of the data consistency */
-<<<<<<< HEAD
-    FLASH_FlushCaches();
-=======
     FLASH_FlushCaches() ;
->>>>>>> master
 
     /* FLASH error interrupt user callback */
     procedure = pFlash.ProcedureOnGoing;
@@ -423,11 +384,7 @@ void HAL_FLASH_IRQHandler(void)
         pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
 
         /* Flush the caches to be sure of the data consistency */
-<<<<<<< HEAD
-        FLASH_FlushCaches();
-=======
         FLASH_FlushCaches() ;
->>>>>>> master
 
         /* FLASH EOP interrupt user callback */
         HAL_FLASH_EndOfOperationCallback(pFlash.Page);
@@ -436,11 +393,7 @@ void HAL_FLASH_IRQHandler(void)
     else
     {
       /* Flush the caches to be sure of the data consistency */
-<<<<<<< HEAD
-      FLASH_FlushCaches();
-=======
       FLASH_FlushCaches() ;
->>>>>>> master
 
       procedure = pFlash.ProcedureOnGoing;
       if (procedure == FLASH_PROC_MASS_ERASE)
