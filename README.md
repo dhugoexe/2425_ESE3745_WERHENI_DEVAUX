@@ -16,7 +16,7 @@ A partir d'un hacheur complet et d'une carte Nucleo-STM32G474RE, nous devons :
 
 L'objectif est de générer quatre signaux PWM en commande complémentaire décalée afin de contrôler le moteur en boucle ouverte tout en respectant les spécifications du cahier des charges. Il s'agit également d'inclure un temps mort entre les commutations des transistors pour éviter les courts-circuits. Les signaux de commande devront être vérifiés à l'oscilloscope pour s'assurer de leur conformité. Parallèlement, une prise en main du hacheur sera effectuée, suivie d'un premier essai de commande du moteur.
 
-## Génération de 4 PWM
+## 1-Génération de 4 PWM
 
 Nous allons générer quatre signaux PWM sur les bras de pont U et V pour contrôler le hacheur, en utilisant le timer déjà assigné à ces broches. Conformément au cahier des charges, la fréquence de la PWM doit être de 20 kHz, avec un temps mort minimum à déterminer en fonction des spécifications de la datasheet des transistors (la valeur devra être validée). De plus, une résolution minimale de 10 bits est requise pour assurer un contrôle précis.
 
