@@ -23,10 +23,9 @@ Nous allons générer quatre signaux PWM sur les bras de pont U et V pour contr�
 
 ![image](https://github.com/user-attachments/assets/595a7202-ebe4-4573-9a65-71ace011c0eb)
 
-Fréquence de la PWM : 20kHz
-Temps mort minimum : à voir selon la datasheet des transistors (faire valider la valeur)
-Résolution minimum : 10bits.
-Pour les tests, fixer le rapport cyclique à 60%.
+## Configuration de pin
+Nous utiliserons le Timer 1 (TIM1) pour générer les signaux PWM principaux sur les broches PA9 et PA8, ainsi que leurs signaux complémentaires sur les broches PA14 et PA13, comme le montre la figure ci-dessous
+
 ![image](https://github.com/user-attachments/assets/6e4ea078-e335-4641-81d5-670c1b0f5845)
 
 ## *Configuration de Timer1
