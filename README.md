@@ -13,6 +13,8 @@ A partir d'un hacheur complet et d'une carte Nucleo-STM32G474RE, nous devons :
 
 
 ## TP1 Commande MCC basique
+
+L'objectif est de générer quatre signaux PWM en commande complémentaire décalée afin de contrôler le moteur en boucle ouverte tout en respectant les spécifications du cahier des charges. Il s'agit également d'inclure un temps mort entre les commutations des transistors pour éviter les courts-circuits. Les signaux de commande devront être vérifiés à l'oscilloscope pour s'assurer de leur conformité. Parallèlement, une prise en main du hacheur sera effectuée, suivie d'un premier essai de commande du moteur.
 ## Génération de 4 PWM
 
 ![image](https://github.com/user-attachments/assets/595a7202-ebe4-4573-9a65-71ace011c0eb)
