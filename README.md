@@ -73,6 +73,9 @@ Pour obtenir un rapport cyclique de 60 %, nous avons modifié les registres CCR1
 
 
 
+![image](https://github.com/user-attachments/assets/75ddcc5c-a24f-4d21-9e86-191b17867080)
+
+
 
 
 ##  Premiers tests
