@@ -235,6 +235,9 @@ La fonction Encoder_GetFilteredSpeed calcule une vitesse filtrée : elle récup�
 
 ![image](https://github.com/user-attachments/assets/ac897a73-5b19-4dfa-bc09-79fd7bfe50ec)
 
+## Conclusion
+
+Dans ce TP, nous allons commander le moteur en boucle ouverte tout en limitant l'accélération afin d'assurer un démarrage progressif et de minimiser les variations brusques de courant. Ensuite, nous mesurerons le courant aux points stratégiques du montage pour analyser la consommation en fonction des conditions de fonctionnement. Enfin, la vitesse sera mesurée à l'aide du Encodeur.
 
 
 ## TP3
