@@ -217,6 +217,24 @@ Ce callback gère la fin d'une conversion ADC en mode DMA. Il calcule la moyenne
 
 ![Capture d'écran 2024-11-20 172019](https://github.com/user-attachments/assets/1545228f-ff1e-41c7-ab40-882f2b31d2ae)
 
+## 3-Mesure de vitesse
+
+Pour Mesure de vitesse de Rotation Nous Allons utulisé la pin PA6 et PA4 a l'aide de Timer3 
+
+## Configuration de Timer 3
+
+![image](https://github.com/user-attachments/assets/bb9cc296-9eb1-4b7b-a41f-203978bde164)
+
+## Code de mesure de Vitesse 
+
+La fonction Encoder_Init initialise le mode encodeur du timer htim1 avec HAL_TIM_Encoder_Start, permettant de commencer à compter les impulsions provenant de l'encodeur. Elle enregistre également la dernière valeur du compteur et le temps correspondant pour des calculs ultérieurs. 
+
+![image](https://github.com/user-attachments/assets/23721beb-723c-4f7d-8f95-ff2cc5db7bda)
+
+La fonction Encoder_GetFilteredSpeed calcule une vitesse filtrée : elle récupère la vitesse brute avec Encoder_GetSpeed, stocke cette valeur dans un buffer circulaire de taille FILTER_SIZE, et calcule la moyenne des valeurs du buffer. Cette moyenne est ensuite retournée, fournissant une mesure de vitesse lissée pour minimiser l'impact des fluctuations instantanées.
+
+![image](https://github.com/user-attachments/assets/ac897a73-5b19-4dfa-bc09-79fd7bfe50ec)
+
 
 
 ## TP3
