@@ -64,10 +64,11 @@ Nous allons commencer par calculer la période d'oscillation à partir de la fr�
 Ensuite, d'après la datasheet des transistors, nous prenons le temps de retard de conduction 𝑇dfg égal à 100 ns
 Pour calculer le temps mort nous divisons le temps de retard 𝑇dfg par la période d'oscillation 𝑇
 
+![image](https://github.com/user-attachments/assets/c2d5c240-0cdb-4c6b-94b8-5139e6a4bb4f)
+
 ![image](https://github.com/user-attachments/assets/2295c7fb-d774-4ec0-b1f9-40547e2d3ec9)
 
 
-![image](https://github.com/user-attachments/assets/c2d5c240-0cdb-4c6b-94b8-5139e6a4bb4f)
 
 
 
