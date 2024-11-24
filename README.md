@@ -71,14 +71,14 @@ Pour calculer le temps mort nous divisons le temps de retard 𝑇dfg par la pér
 
 Pour obtenir un rapport cyclique de 60 %, nous avons modifié les registres CCR1 du Timer 1 et CCR2 du Timer 2. Les résultats de cette configuration sont illustrés dans la figure ci-dessous :
 
+![image](https://github.com/user-attachments/assets/dfb90150-d83b-4bfb-b6d1-ac2a709d8126)
 
+Démonstation de temps mort egale a 100ns sur l'oscilloscope:
 
 ![image](https://github.com/user-attachments/assets/75ddcc5c-a24f-4d21-9e86-191b17867080)
 
 
-
-
-##  Premiers tests
+##  Commande de vitesse 
 
 Pour controler la vitesse du moteur, nous allons envoyer une séquence via la liaison UART (par l'USB) de la forme :
 
@@ -88,6 +88,12 @@ Détection des premiers caractères "speed"
 Conversion de tous les caractères représentant des chiffres XXXX en nombre entier
 Vérification de la valeur (si la valeur est supérieur au maximum autorisé (bien spécifier cette valeur), on l'abaisse à cette valeur),
 Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
+
+
+
+![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/716adabf-5032-41f8-aae9-cf2fdf899cb9)
+
+
 
 ![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/6edce119-dbec-453e-9168-16da37e74e04)
 
