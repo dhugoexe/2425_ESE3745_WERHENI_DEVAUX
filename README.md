@@ -10,6 +10,7 @@ A partir d'un hacheur complet et d'une carte Nucleo-STM32G474RE, nous devons :
 
 -Réaliser l'asservissement en temps réel.
 
+![image](https://github.com/user-attachments/assets/218f0c75-94bf-4974-bea7-da951720b317)
 
 
 ## TP1 Commande MCC basique
