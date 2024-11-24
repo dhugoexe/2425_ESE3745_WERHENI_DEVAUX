@@ -28,9 +28,13 @@ Nous utiliserons le Timer 1 (TIM1) pour générer les signaux PWM principaux sur
 
 ![image](https://github.com/user-attachments/assets/6e4ea078-e335-4641-81d5-670c1b0f5845)
 
-## *Configuration de Timer1
 
-![image](https://github.com/user-attachments/assets/9334986f-084b-472b-9abd-fdaea6aed4ae)
+## Configuration de Timer1
+
+La configuration des broches dans STM32CubeMX est réalisée en activant le TIM1 et en assignant les canaux PWM (CH1, CH2, CH1N, CH2N) aux broches correspondantes, comme illustré dans la figure.
+
+![image](https://github.com/user-attachments/assets/8e0e56e9-7708-4ce9-9416-2b8abd989fa8)
+
 
 ## *Calcule de temps mort 
 
