@@ -69,6 +69,8 @@ Pour calculer le temps mort nous divisons le temps de retard 𝑇dfg par la pér
 ![image](https://github.com/user-attachments/assets/2295c7fb-d774-4ec0-b1f9-40547e2d3ec9)
 
 
+Pour obtenir un rapport cyclique de 60 %, nous avons modifié les registres CCR1 du Timer 1 et CCR2 du Timer 2. Les résultats de cette configuration sont illustrés dans la figure ci-dessous :
+
 
 
 
