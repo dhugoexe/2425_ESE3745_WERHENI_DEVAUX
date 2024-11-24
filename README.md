@@ -134,6 +134,8 @@ Dans cette partie Nous devons :
 -Mesurer le courant aux endroits adéquat dans le montage,
 -Mesurer la vitesse à partir du codeur présent sur chaque moteur.
 
+![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
+
 ### Commandes de vitesse 
 
 Rajouter quelques fonctionnalités à votre projet :
@@ -154,11 +156,32 @@ Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, ma
 
 ![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
 
-## 
-![image](https://github.com/user-attachments/assets/0539bb5e-770f-4dc4-9d0a-02c8bcea4e99)
-
-Resultat:
+Resultat sur Tera Terminal:
 ![image](https://github.com/user-attachments/assets/69a8a22f-f437-4978-85f0-92d08a0418be)
+
+## Pour Start:
+
+![image](https://github.com/user-attachments/assets/e09cf92d-87dc-4532-ad1a-7b1a397ee0ce)
+
+## Pour Stop:
+
+![image](https://github.com/user-attachments/assets/50ebab21-297f-4133-a7c3-931b29f07395)
+
+## Pour Speed=40
+
+![image](https://github.com/user-attachments/assets/0bb81bde-7592-49ba-810a-9ff3cad2b149)
+
+## Pour Speed=60
+
+![image](https://github.com/user-attachments/assets/99a2c38c-5148-4f79-8df3-6c879cb4802a)
+
+
+
+
+
+
+
+
 
 #### Command stop:
 ![IMG_0255](https://github.com/user-attachments/assets/289d3670-bf3f-4150-846c-fbd5f82d5eea)
