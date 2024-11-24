@@ -185,11 +185,20 @@ La broche PA2 est utilisée pour mesurer le courant dans le circuit. Elle est co
 
 Ce code mesure le courant en utilisant un ADC en mode polling et transmet le résultat via l'UART. Après avoir démarré et attendu la fin de la conversion avec HAL_ADC_Start et HAL_ADC_PollForConversion, la valeur brute de l'ADC est lue et convertie en tension, puis en courant à l'aide de la fonction de transfert. Le courant calculé est ensuite formaté et transmis via HAL_UART_Transmit pour affichage
 
-![image](https://github.com/user-attachments/assets/40b9117f-93b6-43b5-96c1-b753aaed4ccd)
+![image](https://github.com/user-attachments/assets/3c1bd830-430f-43c1-ae0a-4e8adc56eb34)
+
 
 ## Configuration de pin ADC1
 
-![image](https://github.com/user-attachments/assets/9517dd66-be40-46f0-aed2-87978420f7b2)
+![image](https://github.com/user-attachments/assets/aaf916e9-07b0-4e7f-a577-5e803345126c)
+
+
+## Resultat sur Tera Term 
+
+![image](https://github.com/user-attachments/assets/28457f7d-9714-4755-8dac-a68b5404c58f)
+
+
+
 
 
 
