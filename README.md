@@ -52,10 +52,13 @@ où :
 
 ![image](https://github.com/user-attachments/assets/2243a5dc-26b7-46f2-8f1f-897aa8f3f9b2)
 
+Finalement, PSC :  PSC=8500−1=8499
+
+![image](https://github.com/user-attachments/assets/34842a06-e842-4b00-9adf-dc6d1f474cee)
+
 ## *Calcule de temps mort 
 
-
-![image](https://github.com/user-attachments/assets/97f3a64e-5bbd-4c1a-8b16-40a9c450a555)
+![image](https://github.com/user-attachments/assets/9fd1b848-8360-43a3-8536-d8f76f42fa28)
 
 
 ##  Premiers tests
