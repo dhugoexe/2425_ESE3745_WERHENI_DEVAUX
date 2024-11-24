@@ -239,8 +239,13 @@ La fonction Encoder_GetFilteredSpeed calcule une vitesse filtrée : elle récup�
 
 Dans ce TP, nous allons commander le moteur en boucle ouverte tout en limitant l'accélération afin d'assurer un démarrage progressif et de minimiser les variations brusques de courant. Ensuite, nous mesurerons le courant aux points stratégiques du montage pour analyser la consommation en fonction des conditions de fonctionnement. Enfin, la vitesse sera mesurée à l'aide du Encodeur.
 
+## TP3 Asservissement
 
-## TP3
+Dans cette partie Nous devons :
+
+-Etablir l'asservissement en vitesse du moteur,
+-Etablir l'asservissement en courant du moteur.
+
 
 
 
