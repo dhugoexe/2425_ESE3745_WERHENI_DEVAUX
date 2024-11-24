@@ -80,14 +80,13 @@ Démonstation de temps mort egale a 100ns sur l'oscilloscope:
 
 ##  Commande de vitesse 
 
-Pour controler la vitesse du moteur, nous allons envoyer une séquence via la liaison UART (par l'USB) de la forme :
+Pour controler la vitesse du moteur, nous allons envoyer une séquence via la liaison UART (par l'USB) de la forme :speed XXXX
 
-speed XXXX
 Le traitement de cette chaine de caractère se faire de la manière suivant :
-Détection des premiers caractères "speed"
-Conversion de tous les caractères représentant des chiffres XXXX en nombre entier
-Vérification de la valeur (si la valeur est supérieur au maximum autorisé (bien spécifier cette valeur), on l'abaisse à cette valeur),
-Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
+-Détection des premiers caractères "speed"
+-Conversion de tous les caractères représentant des chiffres XXXX en nombre entier
+-Vérification de la valeur (si la valeur est supérieur au maximum autorisé (bien spécifier cette valeur), on l'abaisse à cette valeur),
+-Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
 
 
 
@@ -112,6 +111,17 @@ Commande start : permet de fixer le rapport cyclique à 50% (vitesse nulle) et d
 Commande stop : permet de désactiver la génération des PWM.
 Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, mais afin de réduire l'appel à courant, vous devez établir une montée progressive à cette vitesse en quelques secondes. Vous pouvez effectuer une rampe entre la valeur actuelle et la valeur cible avec un incrément bien réfléchi de la PWM à un intervalle de temps régulier. Par la suite votre asservissement fera cela tout seul.
 
+![Capture d'écran 2024-11-06 184250](https://github.com/user-attachments/assets/53832d32-45e6-4761-9a1e-c18a8bd5741d)
+
+Les Problèmes potentiels que nous allons observés :
+
+-Instabilité : Le changement brutal de puissance peut provoquer des oscillations ou des comportements imprévisibles.
+
+-Surchauffe : Si le courant augmente trop rapidement, cela peut provoquer une surchauffe dans certains composants (transistors, résistances, etc.).
+
+-À-coups : Pour un moteur, une variation brutale du rapport cyclique peut entraîner des mouvements brusques, causant des contraintes mécaniques ou un manque de précision.
+
+## 
 ![image](https://github.com/user-attachments/assets/0539bb5e-770f-4dc4-9d0a-02c8bcea4e99)
 
 Resultat:
