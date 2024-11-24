@@ -110,7 +110,9 @@ La fonction setSpeed(uint8_t speed) ajuste progressivement la vitesse actuelle (
 ![image](https://github.com/user-attachments/assets/9c9b9361-4951-49da-9f64-aa3d4bde8794)
 
 
+## Conclusion
 
+À partir de ce TP, nous allons générer quatre signaux PWM en complémentaire décalée pour contrôler le moteur en boucle ouverte, tout en respectant le cahier des charges. Cela inclut l'ajout du temps mort et la mise en place d'une commande progressive de la vitesse du moteur.
 
 ![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/716adabf-5032-41f8-aae9-cf2fdf899cb9)
 
@@ -124,15 +126,33 @@ La fonction setSpeed(uint8_t speed) ajuste progressivement la vitesse actuelle (
 ![IMG_0238](https://github.com/user-attachments/assets/e5b2945f-b053-441c-bef5-8e218e16560f)
 
 
-## tp2
+## TP2 Commande en boucle ouverte, mesure de Vitesse et de courant
+
+Dans cette partie Nous devons :
+
+-Commander en boucle ouverte le moteur avec une accélération limitée,
+-Mesurer le courant aux endroits adéquat dans le montage,
+-Mesurer la vitesse à partir du codeur présent sur chaque moteur.
+
 ### Commandes de vitesse 
 
 Rajouter quelques fonctionnalités à votre projet :
 
-Commande start : permet de fixer le rapport cyclique à 50% (vitesse nulle) et d'activer la génération des pwm (HAL_TIM_PWM_Start et HAL_TIMEx_PWMN_Start),
-Commande stop : permet de désactiver la génération des PWM.
-Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, mais afin de réduire l'appel à courant, vous devez établir une montée progressive à cette vitesse en quelques secondes. Vous pouvez effectuer une rampe entre la valeur actuelle et la valeur cible avec un incrément bien réfléchi de la PWM à un intervalle de temps régulier. Par la suite votre asservissement fera cela tout seul.
+*Commande start : permet de fixer le rapport cyclique à 50% (vitesse nulle) et d'activer la génération des pwm (HAL_TIM_PWM_Start et HAL_TIMEx_PWMN_Start),
 
+![image](https://github.com/user-attachments/assets/5e4c713b-fcf4-49fb-83b0-99988303f4f4)
+
+->Ce code démarre un système PWM lorsque la commande "start" est détectée. Il active les signaux PWM sur deux canaux du timer htim1 avec un rapport cyclique de 50 %. Ensuite, il met à jour une variable currentSpeed pour indiquer une vitesse de fonctionnement de 50 %.
+
+*Commande stop : permet de désactiver la génération des PWM.
+
+![image](https://github.com/user-attachments/assets/c0de0c24-eb29-46ea-a523-8329ff082d5d)
+
+Ce code arrête le système PWM lorsque la commande "stop" est détectée. Il désactive les signaux PWM sur les canaux 1 et 2 du timer htim1
+
+Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, mais afin de réduire l'appel à courant, Nous devons établir une montée progressive à cette vitesse en quelques secondes.
+
+![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
 
 ## 
 ![image](https://github.com/user-attachments/assets/0539bb5e-770f-4dc4-9d0a-02c8bcea4e99)
