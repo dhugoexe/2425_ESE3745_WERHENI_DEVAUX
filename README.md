@@ -247,20 +247,22 @@ Pour ce faire, vous pouvez utiliser un contrôleur PID ou un contrôleur à deux
 
 ## Asservissement en vitesse du moteur :
 
-Utilisez le codeur du moteur pour obtenir la vitesse en temps réel (en comptant les impulsions sur une période donnée).
+Nous Utiliseons le codeur du moteur pour obtenir la vitesse en temps réel (en comptant les impulsions sur une période donnée).
 
 *Calcul de l'erreur de vitesse :
 Comparez la vitesse mesurée avec la consigne de vitesse Vconsigne,L'erreur de vitesse 𝑒𝑣 sera :
 
 ![image](https://github.com/user-attachments/assets/dd2a0c92-b303-44bd-b077-791d3ba23c3a)
 
-*Contrôleur PID ou PI :
-Utilisez un contrôleur PID pour ajuster la commande du moteur en fonction de cette erreur. Le contrôleur PID est basé sur trois termes :
--Proportionnel (P) : Correction proportionnelle à l'erreur.
--Intégral (I) : Compensation de l'erreur cumulée dans le temps.
--Dérivé (D) : Atténuation des variations rapides.
+Un contrôleur PID est utilisé pour ajuster la commande du moteur en fonction de l'erreur de vitesse. Le contrôleur PID se compose de trois termes :
 
-L'algorithme PID ajuste la commande pour amener l'erreur à zéro et stabiliser la vitesse du moteur.
+-Proportionnel (P) : Correction proportionnelle à l'erreur.
+
+-Intégral (I) : Compensation de l'erreur accumulée au fil du temps.
+
+-Dérivé (D) : Atténuation des variations rapides ou des oscillations.
+
+L'algorithme PID ajuste la commande pour réduire l'erreur à zéro et stabiliser la vitesse du moteur, en offrant un contrôle précis et réactif.
 
 ## Asservissement en courant du moteur :
 
@@ -274,7 +276,9 @@ Comparez le courant mesuré avec la consigne de courant Iconsigne. L'erreur de c
 
 Un contrôleur PID (ou un contrôleur proportionnel dans certains cas) est ensuite utilisé pour ajuster la commande de courant. Ce contrôleur permet de moduler le signal PWM appliqué au moteur, afin de réguler le courant et de maintenir la valeur désirée en fonction de l'erreur mesurée.
 
+## Conclusion
 
+La conclusion de cette partie est que l'asservissement en vitesse et en courant est essentiel pour assurer un contrôle précis et stable du moteur. L'asservissement en vitesse permet de maintenir la vitesse du moteur à la valeur souhaitée, en ajustant le signal de commande via un contrôleur PID. De même, l'asservissement en courant régule la puissance délivrée au moteur, évitant ainsi les surcharges et garantissant des performances optimales. Ces deux boucles de contrôle, basées sur les mesures de la vitesse et du courant, contribuent à un fonctionnement fiable et sécurisé du moteur dans diverses conditions d'exploitation.
 
 
 
