@@ -264,14 +264,15 @@ L'algorithme PID ajuste la commande pour amener l'erreur à zéro et stabiliser 
 
 ## Asservissement en courant du moteur :
 
-L’asservissement en courant est crucial pour réguler la puissance délivrée au moteur, particulièrement pour éviter les surcharges. L'asservissement en courant se fait généralement en boucle ouverte pour une régulation de base ou en boucle fermée avec un contrôleur PID pour Notre cas.
+L’asservissement en courant est essentiel pour réguler la puissance délivrée au moteur, en particulier afin d'éviter les surcharges et de garantir un fonctionnement stable. En règle générale, l'asservissement en courant peut être effectué en boucle ouverte pour une régulation simple ou en boucle fermée avec un contrôleur PID, comme c'est le cas pour notre application.
+
 *Calcul de l'erreur de courant :
+
 Comparez le courant mesuré avec la consigne de courant Iconsigne. L'erreur de courant 𝑒𝑐 sera:
 
 ![image](https://github.com/user-attachments/assets/59ade4fe-754f-444d-9311-6c4a357eadb5)
 
-Utilisez un contrôleur PID (ou un simple contrôleur proportionnel dans certains cas) pour ajuster la commande de courant.
-Le PID ajustera du PWM appliqué au moteur pour contrôler le courant.
+Un contrôleur PID (ou un contrôleur proportionnel dans certains cas) est ensuite utilisé pour ajuster la commande de courant. Ce contrôleur permet de moduler le signal PWM appliqué au moteur, afin de réguler le courant et de maintenir la valeur désirée en fonction de l'erreur mesurée.
 
 
 
