@@ -190,12 +190,36 @@ Ce code mesure le courant en utilisant un ADC en mode polling et transmet le ré
 
 ## Configuration de pin ADC1
 
-![image](https://github.com/user-attachments/assets/aaf916e9-07b0-4e7f-a577-5e803345126c)
+![image](https://github.com/user-attachments/assets/c2cfcbbd-df29-41fb-baac-c036590696c2)
 
 
 ## Resultat sur Tera Term 
 
 ![image](https://github.com/user-attachments/assets/28457f7d-9714-4755-8dac-a68b5404c58f)
+
+## Mesure à interval de temps régulier avec la mise en place d'une la chaine d'acquisition Timer/ADC/DMA.
+
+## Configuratn de l'ADC
+
+![image](https://github.com/user-attachments/assets/94fcf43a-2bba-48ca-b77c-dd3f561434e5)
+
+![image](https://github.com/user-attachments/assets/0e9ddabe-9ec4-442e-9c68-936472224025)
+
+![image](https://github.com/user-attachments/assets/4df5d405-624f-4e06-aef7-a48d51922341)
+
+## Interuption 
+
+Ce callback gère la fin d'une conversion ADC en mode DMA. Il calcule la moyenne des valeurs ADC stockées dans le buffer, met à jour une variable d'état pour signaler la fin de la conversion, et désactive le DMA. Une notification est également envoyée via l'UART pour signaler la complétion.
+
+![image](https://github.com/user-attachments/assets/9ac4ee32-489c-4000-8f26-9582c7889bad)
+
+## Resultat sur Tera Term 
+
+![Capture d'écran 2024-11-20 172019](https://github.com/user-attachments/assets/1545228f-ff1e-41c7-ab40-882f2b31d2ae)
+
+
+
+
 
 
 
