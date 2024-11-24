@@ -35,6 +35,22 @@ La configuration des broches dans STM32CubeMX est réalisée en activant le TIM1
 
 ![image](https://github.com/user-attachments/assets/8e0e56e9-7708-4ce9-9416-2b8abd989fa8)
 
+## Calcul de PRSC (Prescaler) pour une fréquence PWM de 20 kHz
+
+L'équation de base pour calculer la fréquence d'une PWM est donnée par :
+
+![image](https://github.com/user-attachments/assets/42374c96-c14c-43c1-8fbd-b617a2b02815)
+
+où :
+
+-fPWM est la fréquence de la PWM (20 kHz dans ce cas)
+
+-fCLK est la fréquence de l'horloge (170 MHz)
+
+-PSC est le prescaler (valeur recherchée)
+
+-ARR est l'Auto-Reload Register (0 ici).
+
 
 ## *Calcule de temps mort 
 
