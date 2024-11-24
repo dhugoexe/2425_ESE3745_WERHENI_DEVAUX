@@ -219,26 +219,6 @@ Ce callback gère la fin d'une conversion ADC en mode DMA. Il calcule la moyenne
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pour mesurer le courant, on utilise l'ADC. Selon les schématics de la carte, la mesure du courant se fait grace aux composants xxx, qui dans notre cas, est branché sur le PIN__ (ADC1)
-
 ## TP3
 
 
