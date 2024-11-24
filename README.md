@@ -1,3 +1,13 @@
+## L'objectifs
+
+A partir d'un hacheur complet et d'une carte Nucleo-STM32G474RE, nous devons :
+-Réaliser un shell pour commander le hacheur,
+-Réaliser la commande des 4 transistors du hacheur en commande complémentaire décalée,
+-Faire l'acquisition des différents capteurs,
+-Réaliser l'asservissement en temps réel.
+
+
+
 ## TP1 Commande MCC basique
 ## Génération de 4 PWM
 
