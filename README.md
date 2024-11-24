@@ -178,8 +178,21 @@ Ensuite, la tension 𝑈 est reliée au courant I via l'équation caractéristiq
 où 1.65V est l'offset pour un courant nul, et 0.05 V/A est la sensibilité du capteur.
 
 ## les pin du stm32 utilisés pour faire ces mesures de courant
-La pin PA2 permet 
-Etablir une première mesure de courant avec les ADC en Pooling.
+
+La broche PA2 est utilisée pour mesurer le courant dans le circuit. Elle est configurée en entrée analogique et reliée à un convertisseur analogique-numérique (ADC) du STM32, permettant de convertir le signal analogique du capteur de courant en une valeur numérique exploitable par le microcontrôleur.
+
+## Etablir une première mesure de courant avec les ADC en Pooling.
+
+Ce code mesure le courant en utilisant un ADC en mode polling et transmet le résultat via l'UART. Après avoir démarré et attendu la fin de la conversion avec HAL_ADC_Start et HAL_ADC_PollForConversion, la valeur brute de l'ADC est lue et convertie en tension, puis en courant à l'aide de la fonction de transfert. Le courant calculé est ensuite formaté et transmis via HAL_UART_Transmit pour affichage
+
+![image](https://github.com/user-attachments/assets/40b9117f-93b6-43b5-96c1-b753aaed4ccd)
+
+## Configuration de pin ADC1
+
+![image](https://github.com/user-attachments/assets/9517dd66-be40-46f0-aed2-87978420f7b2)
+
+
+
 
 
 
