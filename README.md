@@ -57,6 +57,10 @@ Finalement, PSC :  PSC=8500−1=8499
 ![image](https://github.com/user-attachments/assets/34842a06-e842-4b00-9adf-dc6d1f474cee)
 
 ## *Calcule de temps mort 
+Nous allons commencer par calculer la période d'oscillation à partir de la fréquence, en utilisant la formule T=1/f=1/170Mhz=5.8nf
+Puis a partir de la datasheet des transistors on  
+​
+ . Ainsi, avec une fréquence de 170 MHz, nous obtenons 
 
 ![image](https://github.com/user-attachments/assets/9fd1b848-8360-43a3-8536-d8f76f42fa28)
 
