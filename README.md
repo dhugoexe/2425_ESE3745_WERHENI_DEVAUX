@@ -114,17 +114,6 @@ La fonction setSpeed(uint8_t speed) ajuste progressivement la vitesse actuelle (
 
 À partir de ce TP, nous allons générer quatre signaux PWM en complémentaire décalée pour contrôler le moteur en boucle ouverte, tout en respectant le cahier des charges. Cela inclut l'ajout du temps mort et la mise en place d'une commande progressive de la vitesse du moteur.
 
-![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/716adabf-5032-41f8-aae9-cf2fdf899cb9)
-
-
-
-![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/6edce119-dbec-453e-9168-16da37e74e04)
-
-
-
-![IMG_0243](https://github.com/user-attachments/assets/e43b6472-9f8c-4ed9-a330-3deb1754be1c)
-![IMG_0238](https://github.com/user-attachments/assets/e5b2945f-b053-441c-bef5-8e218e16560f)
-
 
 ## TP2 Commande en boucle ouverte, mesure de Vitesse et de courant
 
@@ -175,6 +164,22 @@ Resultat sur Tera Terminal:
 
 ![image](https://github.com/user-attachments/assets/99a2c38c-5148-4f79-8df3-6c879cb4802a)
 
+## 2 Mesure du courant
+## les fonctions de transfert des capteurs de mesure de courant (lecture datasheet)
+Une fonction de transfert établit une relation entre le courant mesuré par un capteur et la tension de sortie qu'il génère, permettant ainsi de convertir les lectures analogiques en valeurs physiques exploitables. Dans ce cas, la tension 𝑈 est d'abord calculée à partir de la valeur brute de l'ADC grâce à la formule :
+
+![image](https://github.com/user-attachments/assets/fa77fcd3-5660-427e-a0ed-6f742ce1548c)
+
+où 3.3V représente la tension de référence et 4096 correspond à la résolution du convertisseur analogique-numérique (12 bits).
+Ensuite, la tension 𝑈 est reliée au courant I via l'équation caractéristique du capteur :
+
+![image](https://github.com/user-attachments/assets/c5869c58-db34-42a8-b9ad-a3ed7487eb29)
+
+où 1.65V est l'offset pour un courant nul, et 0.05 V/A est la sensibilité du capteur.
+
+## les pin du stm32 utilisés pour faire ces mesures de courant
+La pin PA2 permet 
+Etablir une première mesure de courant avec les ADC en Pooling.
 
 
 
@@ -183,17 +188,8 @@ Resultat sur Tera Terminal:
 
 
 
-#### Command stop:
-![IMG_0255](https://github.com/user-attachments/assets/289d3670-bf3f-4150-846c-fbd5f82d5eea)
-![IMG_0254](https://github.com/user-attachments/assets/32c70d61-40ad-4e78-b799-5b86022b2652)
-![IMG_0253](https://github.com/user-attachments/assets/debf6df4-90cc-4812-b42c-67375ba65a98)
-![IMG_0252](https://github.com/user-attachments/assets/4d588991-52a2-487e-943b-050a3d951e08)
 
-#### Visualisation du temps mort (deadtime):
-![IMG_0251](https://github.com/user-attachments/assets/f6ee5d4b-93b6-4b1c-8225-6bceb2372b45)
-![IMG_0250](https://github.com/user-attachments/assets/c0e4051a-b270-4556-bc33-ba1938673bc8)
 
-### Mesures du courant
 
 Pour mesurer le courant, on utilise l'ADC. Selon les schématics de la carte, la mesure du courant se fait grace aux composants xxx, qui dans notre cas, est branché sur le PIN__ (ADC1)
 
