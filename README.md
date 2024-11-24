@@ -103,11 +103,12 @@ Le traitement de cette chaine de caractère se faire de la manière suivant :
 
 Nous allons générer une montée progressive du rapport cyclique afin d'atteindre la vitesse cible. Nous commençons par tester si la vitesse spécifiée respecte les limites définies par les constantes MAX_SPEED et MIN_SPEED. Si la valeur dépasse la limite maximale, elle est plafonnée à MAX_SPEED. Inversement, si elle est inférieure à la limite minimale, elle est ajustée pour correspondre à MIN_SPEED. Une fois validée, la vitesse est appliquée au système en utilisant la fonction setSpeed, et la vitesse réellement appliquée est stockée dans la variable currentSpeed.
 
-![image](https://github.com/user-attachments/assets/9c9b9361-4951-49da-9f64-aa3d4bde8794)
+![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
 
 La fonction setSpeed(uint8_t speed) ajuste progressivement la vitesse actuelle (currentSpeed) vers la vitesse cible (speed). Si la vitesse cible est supérieure, elle augmente currentSpeed étape par étape, en ajustant les registres CCR1 et CCR2 pour moduler le rapport cyclique. Si la vitesse cible est inférieure, elle réduit currentSpeed de manière similaire. À chaque incrément ou décrément, un délai de 100 ms est ajouté pour garantir une transition fluide. Une fois la vitesse cible atteinte, la fonction retourne la vitesse actuelle.
 
-![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
+![image](https://github.com/user-attachments/assets/9c9b9361-4951-49da-9f64-aa3d4bde8794)
+
 
 
 
