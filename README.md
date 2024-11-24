@@ -241,10 +241,40 @@ Dans ce TP, nous allons commander le moteur en boucle ouverte tout en limitant l
 
 ## TP3 Asservissement
 
-Dans cette partie Nous devons :
+L'objectif de cette partie est d'établir l'asservissement du moteur, tant en vitesse qu'en courant. Nous devons d'abord mettre en place un système de régulation de la vitesse du moteur afin de garantir qu'il suive la consigne définie, en utilisant un contrôleur adapté, comme un PID. Ensuite, il est nécessaire de réguler le courant pour éviter les surcharges et assurer un fonctionnement optimal du moteur, en ajustant la commande en fonction de la mesure du courant réel. Ces deux asservissements permettront de maintenir des performances stables et fiables du moteur dans différentes conditions de fonctionnement.
 
--Etablir l'asservissement en vitesse du moteur,
--Etablir l'asservissement en courant du moteur.
+Pour ce faire, vous pouvez utiliser un contrôleur PID ou un contrôleur à deux boucles (vitesse et courant). Voici les grandes étapes :
+
+## Asservissement en vitesse du moteur :
+
+Utilisez le codeur du moteur pour obtenir la vitesse en temps réel (en comptant les impulsions sur une période donnée).
+
+*Calcul de l'erreur de vitesse :
+Comparez la vitesse mesurée avec la consigne de vitesse Vconsigne,L'erreur de vitesse 𝑒𝑣 sera :
+
+![image](https://github.com/user-attachments/assets/dd2a0c92-b303-44bd-b077-791d3ba23c3a)
+
+*Contrôleur PID ou PI :
+Utilisez un contrôleur PID pour ajuster la commande du moteur en fonction de cette erreur. Le contrôleur PID est basé sur trois termes :
+-Proportionnel (P) : Correction proportionnelle à l'erreur.
+-Intégral (I) : Compensation de l'erreur cumulée dans le temps.
+-Dérivé (D) : Atténuation des variations rapides.
+
+L'algorithme PID ajuste la commande pour amener l'erreur à zéro et stabiliser la vitesse du moteur.
+
+## Asservissement en courant du moteur :
+
+L’asservissement en courant est crucial pour réguler la puissance délivrée au moteur, particulièrement pour éviter les surcharges. L'asservissement en courant se fait généralement en boucle ouverte pour une régulation de base ou en boucle fermée avec un contrôleur PID pour Notre cas.
+*Calcul de l'erreur de courant :
+Comparez le courant mesuré avec la consigne de courant Iconsigne. L'erreur de courant 𝑒𝑐 sera:
+
+![image](https://github.com/user-attachments/assets/59ade4fe-754f-444d-9311-6c4a357eadb5)
+
+Utilisez un contrôleur PID (ou un simple contrôleur proportionnel dans certains cas) pour ajuster la commande de courant.
+Le PID ajustera du PWM appliqué au moteur pour contrôler le courant.
+
+
+
 
 
 
