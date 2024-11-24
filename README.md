@@ -89,6 +89,23 @@ Le traitement de cette chaine de caractère se faire de la manière suivant :
 -Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
 
 
+![Capture d'écran 2024-11-06 184250](https://github.com/user-attachments/assets/53832d32-45e6-4761-9a1e-c18a8bd5741d)
+
+## Les Problèmes potentiels que nous allons observés :
+
+-Instabilité : Le changement brutal de puissance peut provoquer des oscillations ou des comportements imprévisibles.
+
+-Surchauffe : Si le courant augmente trop rapidement, cela peut provoquer une surchauffe dans certains composants (transistors, résistances, etc.).
+
+-À-coups : Pour un moteur, une variation brutale du rapport cyclique peut entraîner des mouvements brusques, causant des contraintes mécaniques ou un manque de précision.
+
+## Solution :
+
+Nous allons générer une montée progressive du rapport cyclique afin d'atteindre la vitesse cible. Nous commençons par tester si la vitesse spécifiée respecte les limites définies par les constantes MAX_SPEED et MIN_SPEED. Si la valeur dépasse la limite maximale, elle est plafonnée à MAX_SPEED. Inversement, si elle est inférieure à la limite minimale, elle est ajustée pour correspondre à MIN_SPEED. Une fois validée, la vitesse est appliquée au système en utilisant la fonction setSpeed, et la vitesse réellement appliquée est stockée dans la variable currentSpeed.
+
+![image](https://github.com/user-attachments/assets/b58f7d49-51f4-44d9-97b2-e627a53c2a3e)
+
+
 
 ![Capture d'écran 2024-11-13 162355](https://github.com/user-attachments/assets/716adabf-5032-41f8-aae9-cf2fdf899cb9)
 
@@ -111,15 +128,6 @@ Commande start : permet de fixer le rapport cyclique à 50% (vitesse nulle) et d
 Commande stop : permet de désactiver la génération des PWM.
 Commande speed XXXX : permet de définir le rapport cyclique à XXXX/PWM_MAX, mais afin de réduire l'appel à courant, vous devez établir une montée progressive à cette vitesse en quelques secondes. Vous pouvez effectuer une rampe entre la valeur actuelle et la valeur cible avec un incrément bien réfléchi de la PWM à un intervalle de temps régulier. Par la suite votre asservissement fera cela tout seul.
 
-![Capture d'écran 2024-11-06 184250](https://github.com/user-attachments/assets/53832d32-45e6-4761-9a1e-c18a8bd5741d)
-
-Les Problèmes potentiels que nous allons observés :
-
--Instabilité : Le changement brutal de puissance peut provoquer des oscillations ou des comportements imprévisibles.
-
--Surchauffe : Si le courant augmente trop rapidement, cela peut provoquer une surchauffe dans certains composants (transistors, résistances, etc.).
-
--À-coups : Pour un moteur, une variation brutale du rapport cyclique peut entraîner des mouvements brusques, causant des contraintes mécaniques ou un manque de précision.
 
 ## 
 ![image](https://github.com/user-attachments/assets/0539bb5e-770f-4dc4-9d0a-02c8bcea4e99)
