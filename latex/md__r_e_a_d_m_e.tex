@@ -1,0 +1,169 @@
+\chapter{L\textquotesingle{}objectifs}
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{L\textquotesingle{}objectifs@{L\textquotesingle{}objectifs}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+
+
+A partir d\textquotesingle{}un hacheur complet et d\textquotesingle{}une carte Nucleo-\/\+STM32\+G474\+RE, nous devons \+:
+
+-\/Réaliser un shell pour commander le hacheur.
+
+-\/Réaliser la commande des 4 transistors du hacheur en commande complémentaire décalée.
+
+-\/Faire l\textquotesingle{}acquisition des différents capteurs.
+
+-\/Réaliser l\textquotesingle{}asservissement en temps réel.\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{TP1 Commande MCC basique}{TP1 Commande MCC basique}}\label{md__r_e_a_d_m_e_autotoc_md1}
+L\textquotesingle{}objectif est de générer quatre signaux PWM en commande complémentaire décalée afin de contrôler le moteur en boucle ouverte tout en respectant les spécifications du cahier des charges. Il s\textquotesingle{}agit également d\textquotesingle{}inclure un temps mort entre les commutations des transistors pour éviter les courts-\/circuits. Les signaux de commande devront être vérifiés à l\textquotesingle{}oscilloscope pour s\textquotesingle{}assurer de leur conformité. Parallèlement, une prise en main du hacheur sera effectuée, suivie d\textquotesingle{}un premier essai de commande du moteur.\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{1-\/Génération de 4 PWM}{1-\/Génération de 4 PWM}}\label{md__r_e_a_d_m_e_autotoc_md2}
+Nous allons générer quatre signaux PWM sur les bras de pont U et V pour contrôler le hacheur, en utilisant le timer déjà assigné à ces broches. Conformément au cahier des charges, la fréquence de la PWM doit être de 20 k\+Hz, avec un temps mort minimum à déterminer en fonction des spécifications de la datasheet des transistors (la valeur devra être validée). De plus, une résolution minimale de 10 bits est requise pour assurer un contrôle précis.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{\texorpdfstring{Configuration de pin}{Configuration de pin}}\label{md__r_e_a_d_m_e_autotoc_md3}
+Nous utiliserons le Timer 1 (TIM1) pour générer les signaux PWM principaux sur les broches PA9 et PA8, ainsi que leurs signaux complémentaires sur les broches PA14 et PA13, comme le montre la figure ci-\/dessous
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysection{\texorpdfstring{Configuration de Timer1}{Configuration de Timer1}}\label{md__r_e_a_d_m_e_autotoc_md4}
+La configuration des broches dans STM32\+Cube\+MX est réalisée en activant le TIM1 et en assignant les canaux PWM (CH1, CH2, CH1N, CH2N) aux broches correspondantes, comme illustré dans la figure.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysection{\texorpdfstring{Calcul de PRSC (Prescaler) pour une fréquence PWM de 20 k\+Hz}{Calcul de PRSC (Prescaler) pour une fréquence PWM de 20 k\+Hz}}\label{md__r_e_a_d_m_e_autotoc_md5}
+L\textquotesingle{}équation de base pour calculer la fréquence d\textquotesingle{}une PWM est donnée par \+:
+
+
+
+où \+:
+
+-\/f\+PWM est la fréquence de la PWM (20 k\+Hz dans ce cas)
+
+-\/f\+CLK est la fréquence de l\textquotesingle{}horloge (170 MHz)
+
+-\/PSC est le prescaler (valeur recherchée)
+
+-\/ARR est l\textquotesingle{}Auto-\/\+Reload Register (0 ici).
+
+
+
+Finalement, PSC \+: PSC=8500−1=8499
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysection{\texorpdfstring{\texorpdfstring{$\ast$}{*}\+Calcule de temps mort}{\texorpdfstring{$\ast$}{*}\+Calcule de temps mort}}\label{md__r_e_a_d_m_e_autotoc_md6}
+Nous allons commencer par calculer la période d\textquotesingle{}oscillation à partir de la fréquence, en utilisant la formule \+: ​ 
+
+Ensuite, d\textquotesingle{}après la datasheet des transistors, nous prenons le temps de retard de conduction 𝑇dfg égal à 100 ns Pour calculer le temps mort nous divisons le temps de retard 𝑇dfg par la période d\textquotesingle{}oscillation 𝑇
+
+
+
+
+
+Pour obtenir un rapport cyclique de 60 \%, nous avons modifié les registres CCR1 du Timer 1 et CCR2 du Timer 2. Les résultats de cette configuration sont illustrés dans la figure ci-\/dessous \+:
+
+
+
+Démonstation de temps mort egale a 100ns sur l\textquotesingle{}oscilloscope\+:
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysection{\texorpdfstring{Commande de vitesse}{Commande de vitesse}}\label{md__r_e_a_d_m_e_autotoc_md7}
+Pour controler la vitesse du moteur, nous allons envoyer une séquence via la liaison UART (par l\textquotesingle{}USB) de la forme \+:speed XXXX
+
+Le traitement de cette chaine de caractère se faire de la manière suivant \+: -\/Détection des premiers caractères "{}speed"{} -\/Conversion de tous les caractères représentant des chiffres XXXX en nombre entier -\/Vérification de la valeur (si la valeur est supérieur au maximum autorisé (bien spécifier cette valeur), on l\textquotesingle{}abaisse à cette valeur), -\/Application de cette vitesse au moteur à travers le registre gérant le rapport cyclique de la PWM
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysection{\texorpdfstring{Les Problèmes potentiels que nous allons observés \+:}{Les Problèmes potentiels que nous allons observés \+:}}\label{md__r_e_a_d_m_e_autotoc_md8}
+-\/Instabilité \+: Le changement brutal de puissance peut provoquer des oscillations ou des comportements imprévisibles.
+
+-\/Surchauffe \+: Si le courant augmente trop rapidement, cela peut provoquer une surchauffe dans certains composants (transistors, résistances, etc.).
+
+-\/À-\/coups \+: Pour un moteur, une variation brutale du rapport cyclique peut entraîner des mouvements brusques, causant des contraintes mécaniques ou un manque de précision.\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysection{\texorpdfstring{Solution \+:}{Solution \+:}}\label{md__r_e_a_d_m_e_autotoc_md9}
+Nous allons générer une montée progressive du rapport cyclique afin d\textquotesingle{}atteindre la vitesse cible. Nous commençons par tester si la vitesse spécifiée respecte les limites définies par les constantes MAX\+\_\+\+SPEED et MIN\+\_\+\+SPEED. Si la valeur dépasse la limite maximale, elle est plafonnée à MAX\+\_\+\+SPEED. Inversement, si elle est inférieure à la limite minimale, elle est ajustée pour correspondre à MIN\+\_\+\+SPEED. Une fois validée, la vitesse est appliquée au système en utilisant la fonction set\+Speed, et la vitesse réellement appliquée est stockée dans la variable current\+Speed.
+
+
+
+La fonction set\+Speed(uint8\+\_\+t speed) ajuste progressivement la vitesse actuelle (current\+Speed) vers la vitesse cible (speed). Si la vitesse cible est supérieure, elle augmente current\+Speed étape par étape, en ajustant les registres CCR1 et CCR2 pour moduler le rapport cyclique. Si la vitesse cible est inférieure, elle réduit current\+Speed de manière similaire. À chaque incrément ou décrément, un délai de 100 ms est ajouté pour garantir une transition fluide. Une fois la vitesse cible atteinte, la fonction retourne la vitesse actuelle.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysection{\texorpdfstring{Conclusion}{Conclusion}}\label{md__r_e_a_d_m_e_autotoc_md10}
+À partir de ce TP, nous allons générer quatre signaux PWM en complémentaire décalée pour contrôler le moteur en boucle ouverte, tout en respectant le cahier des charges. Cela inclut l\textquotesingle{}ajout du temps mort et la mise en place d\textquotesingle{}une commande progressive de la vitesse du moteur.\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysection{\texorpdfstring{TP2 Commande en boucle ouverte, mesure de Vitesse et de courant}{TP2 Commande en boucle ouverte, mesure de Vitesse et de courant}}\label{md__r_e_a_d_m_e_autotoc_md11}
+Dans cette partie Nous devons \+:
+
+-\/Commander en boucle ouverte le moteur avec une accélération limitée, -\/Mesurer le courant aux endroits adéquat dans le montage, -\/Mesurer la vitesse à partir du codeur présent sur chaque moteur.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsection{\texorpdfstring{Commandes de vitesse}{Commandes de vitesse}}\label{md__r_e_a_d_m_e_autotoc_md12}
+Rajouter quelques fonctionnalités à votre projet \+:
+
+\texorpdfstring{$\ast$}{*}\+Commande start \+: permet de fixer le rapport cyclique à 50\% (vitesse nulle) et d\textquotesingle{}activer la génération des pwm (HAL\+\_\+\+TIM\+\_\+\+PWM\+\_\+\+Start et HAL\+\_\+\+TIMEx\+\_\+\+PWMN\+\_\+\+Start),
+
+
+
+-\/\texorpdfstring{$>$}{>}Ce code démarre un système PWM lorsque la commande "{}start"{} est détectée. Il active les signaux PWM sur deux canaux du timer htim1 avec un rapport cyclique de 50 \%. Ensuite, il met à jour une variable current\+Speed pour indiquer une vitesse de fonctionnement de 50 \%.
+
+\texorpdfstring{$\ast$}{*}\+Commande stop \+: permet de désactiver la génération des PWM.
+
+
+
+Ce code arrête le système PWM lorsque la commande "{}stop"{} est détectée. Il désactive les signaux PWM sur les canaux 1 et 2 du timer htim1
+
+Commande speed XXXX \+: permet de définir le rapport cyclique à XXXX/\+PWM\+\_\+\+MAX, mais afin de réduire l\textquotesingle{}appel à courant, Nous devons établir une montée progressive à cette vitesse en quelques secondes.
+
+
+
+Resultat sur Tera Terminal\+: \hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysection{\texorpdfstring{Pour Start\+:}{Pour Start\+:}}\label{md__r_e_a_d_m_e_autotoc_md13}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysection{\texorpdfstring{Pour Stop\+:}{Pour Stop\+:}}\label{md__r_e_a_d_m_e_autotoc_md14}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysection{\texorpdfstring{Pour Speed=40}{Pour Speed=40}}\label{md__r_e_a_d_m_e_autotoc_md15}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md16}{}\doxysection{\texorpdfstring{Pour Speed=60}{Pour Speed=60}}\label{md__r_e_a_d_m_e_autotoc_md16}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysection{\texorpdfstring{2 Mesure du courant}{2 Mesure du courant}}\label{md__r_e_a_d_m_e_autotoc_md17}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysection{\texorpdfstring{les fonctions de transfert des capteurs de mesure de courant (lecture datasheet)}{les fonctions de transfert des capteurs de mesure de courant (lecture datasheet)}}\label{md__r_e_a_d_m_e_autotoc_md18}
+Une fonction de transfert établit une relation entre le courant mesuré par un capteur et la tension de sortie qu\textquotesingle{}il génère, permettant ainsi de convertir les lectures analogiques en valeurs physiques exploitables. Dans ce cas, la tension 𝑈 est d\textquotesingle{}abord calculée à partir de la valeur brute de l\textquotesingle{}ADC grâce à la formule \+:
+
+
+
+où 3.\+3V représente la tension de référence et 4096 correspond à la résolution du convertisseur analogique-\/numérique (12 bits). Ensuite, la tension 𝑈 est reliée au courant I via l\textquotesingle{}équation caractéristique du capteur \+:
+
+
+
+où 1.\+65V est l\textquotesingle{}offset pour un courant nul, et 0.\+05 V/A est la sensibilité du capteur.\hypertarget{md__r_e_a_d_m_e_autotoc_md19}{}\doxysection{\texorpdfstring{les pin du stm32 utilisés pour faire ces mesures de courant}{les pin du stm32 utilisés pour faire ces mesures de courant}}\label{md__r_e_a_d_m_e_autotoc_md19}
+La broche PA2 est utilisée pour mesurer le courant dans le circuit. Elle est configurée en entrée analogique et reliée à un convertisseur analogique-\/numérique (ADC) du STM32, permettant de convertir le signal analogique du capteur de courant en une valeur numérique exploitable par le microcontrôleur.\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysection{\texorpdfstring{Etablir une première mesure de courant avec les ADC en Pooling.}{Etablir une première mesure de courant avec les ADC en Pooling.}}\label{md__r_e_a_d_m_e_autotoc_md20}
+Ce code mesure le courant en utilisant un ADC en mode polling et transmet le résultat via l\textquotesingle{}UART. Après avoir démarré et attendu la fin de la conversion avec HAL\+\_\+\+ADC\+\_\+\+Start et HAL\+\_\+\+ADC\+\_\+\+Poll\+For\+Conversion, la valeur brute de l\textquotesingle{}ADC est lue et convertie en tension, puis en courant à l\textquotesingle{}aide de la fonction de transfert. Le courant calculé est ensuite formaté et transmis via HAL\+\_\+\+UART\+\_\+\+Transmit pour affichage
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md21}{}\doxysection{\texorpdfstring{Configuration de pin ADC1}{Configuration de pin ADC1}}\label{md__r_e_a_d_m_e_autotoc_md21}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md22}{}\doxysection{\texorpdfstring{Resultat sur Tera Term}{Resultat sur Tera Term}}\label{md__r_e_a_d_m_e_autotoc_md22}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysection{\texorpdfstring{Mesure à interval de temps régulier avec la mise en place d\textquotesingle{}une la chaine d\textquotesingle{}acquisition Timer/\+ADC/\+DMA.}{Mesure à interval de temps régulier avec la mise en place d\textquotesingle{}une la chaine d\textquotesingle{}acquisition Timer/\+ADC/\+DMA.}}\label{md__r_e_a_d_m_e_autotoc_md23}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md24}{}\doxysection{\texorpdfstring{Configuratn de l\textquotesingle{}ADC}{Configuratn de l\textquotesingle{}ADC}}\label{md__r_e_a_d_m_e_autotoc_md24}
+
+
+
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysection{\texorpdfstring{Interuption}{Interuption}}\label{md__r_e_a_d_m_e_autotoc_md25}
+Ce callback gère la fin d\textquotesingle{}une conversion ADC en mode DMA. Il calcule la moyenne des valeurs ADC stockées dans le buffer, met à jour une variable d\textquotesingle{}état pour signaler la fin de la conversion, et désactive le DMA. Une notification est également envoyée via l\textquotesingle{}UART pour signaler la complétion.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md26}{}\doxysection{\texorpdfstring{Resultat sur Tera Term}{Resultat sur Tera Term}}\label{md__r_e_a_d_m_e_autotoc_md26}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md27}{}\doxysection{\texorpdfstring{3-\/Mesure de vitesse}{3-\/Mesure de vitesse}}\label{md__r_e_a_d_m_e_autotoc_md27}
+Pour Mesure de vitesse de Rotation Nous Allons utulisé la pin PA6 et PA4 a l\textquotesingle{}aide de Timer3\hypertarget{md__r_e_a_d_m_e_autotoc_md28}{}\doxysection{\texorpdfstring{Configuration de Timer 3}{Configuration de Timer 3}}\label{md__r_e_a_d_m_e_autotoc_md28}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md29}{}\doxysection{\texorpdfstring{Code de mesure de Vitesse}{Code de mesure de Vitesse}}\label{md__r_e_a_d_m_e_autotoc_md29}
+La fonction Encoder\+\_\+\+Init initialise le mode encodeur du timer htim1 avec HAL\+\_\+\+TIM\+\_\+\+Encoder\+\_\+\+Start, permettant de commencer à compter les impulsions provenant de l\textquotesingle{}encodeur. Elle enregistre également la dernière valeur du compteur et le temps correspondant pour des calculs ultérieurs.
+
+
+
+La fonction Encoder\+\_\+\+Get\+Filtered\+Speed calcule une vitesse filtrée \+: elle récupère la vitesse brute avec Encoder\+\_\+\+Get\+Speed, stocke cette valeur dans un buffer circulaire de taille FILTER\+\_\+\+SIZE, et calcule la moyenne des valeurs du buffer. Cette moyenne est ensuite retournée, fournissant une mesure de vitesse lissée pour minimiser l\textquotesingle{}impact des fluctuations instantanées.
+
+\hypertarget{md__r_e_a_d_m_e_autotoc_md30}{}\doxysection{\texorpdfstring{Conclusion}{Conclusion}}\label{md__r_e_a_d_m_e_autotoc_md30}
+Dans ce TP, nous allons commander le moteur en boucle ouverte tout en limitant l\textquotesingle{}accélération afin d\textquotesingle{}assurer un démarrage progressif et de minimiser les variations brusques de courant. Ensuite, nous mesurerons le courant aux points stratégiques du montage pour analyser la consommation en fonction des conditions de fonctionnement. Enfin, la vitesse sera mesurée à l\textquotesingle{}aide du Encodeur.\hypertarget{md__r_e_a_d_m_e_autotoc_md31}{}\doxysection{\texorpdfstring{TP3 Asservissement}{TP3 Asservissement}}\label{md__r_e_a_d_m_e_autotoc_md31}
+L\textquotesingle{}objectif de cette partie est d\textquotesingle{}établir l\textquotesingle{}asservissement du moteur, tant en vitesse qu\textquotesingle{}en courant. Nous devons d\textquotesingle{}abord mettre en place un système de régulation de la vitesse du moteur afin de garantir qu\textquotesingle{}il suive la consigne définie, en utilisant un contrôleur adapté, comme un PID. Ensuite, il est nécessaire de réguler le courant pour éviter les surcharges et assurer un fonctionnement optimal du moteur, en ajustant la commande en fonction de la mesure du courant réel. Ces deux asservissements permettront de maintenir des performances stables et fiables du moteur dans différentes conditions de fonctionnement.
+
+Pour ce faire, vous pouvez utiliser un contrôleur PID ou un contrôleur à deux boucles (vitesse et courant). Voici les grandes étapes \+:\hypertarget{md__r_e_a_d_m_e_autotoc_md32}{}\doxysection{\texorpdfstring{Asservissement en vitesse du moteur \+:}{Asservissement en vitesse du moteur \+:}}\label{md__r_e_a_d_m_e_autotoc_md32}
+Nous Utiliseons le codeur du moteur pour obtenir la vitesse en temps réel (en comptant les impulsions sur une période donnée).
+
+\texorpdfstring{$\ast$}{*}\+Calcul de l\textquotesingle{}erreur de vitesse \+: Comparez la vitesse mesurée avec la consigne de vitesse Vconsigne,L\textquotesingle{}erreur de vitesse 𝑒𝑣 sera \+:
+
+
+
+Un contrôleur PID est utilisé pour ajuster la commande du moteur en fonction de l\textquotesingle{}erreur de vitesse. Le contrôleur PID se compose de trois termes \+:
+
+-\/Proportionnel (P) \+: Correction proportionnelle à l\textquotesingle{}erreur.
+
+-\/Intégral (I) \+: Compensation de l\textquotesingle{}erreur accumulée au fil du temps.
+
+-\/Dérivé (D) \+: Atténuation des variations rapides ou des oscillations.
+
+L\textquotesingle{}algorithme PID ajuste la commande pour réduire l\textquotesingle{}erreur à zéro et stabiliser la vitesse du moteur, en offrant un contrôle précis et réactif.\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysection{\texorpdfstring{Asservissement en courant du moteur \+:}{Asservissement en courant du moteur \+:}}\label{md__r_e_a_d_m_e_autotoc_md33}
+L’asservissement en courant est essentiel pour réguler la puissance délivrée au moteur, en particulier afin d\textquotesingle{}éviter les surcharges et de garantir un fonctionnement stable. En règle générale, l\textquotesingle{}asservissement en courant peut être effectué en boucle ouverte pour une régulation simple ou en boucle fermée avec un contrôleur PID, comme c\textquotesingle{}est le cas pour notre application.
+
+\texorpdfstring{$\ast$}{*}\+Calcul de l\textquotesingle{}erreur de courant \+:
+
+Comparez le courant mesuré avec la consigne de courant Iconsigne. L\textquotesingle{}erreur de courant 𝑒𝑐 sera\+:
+
+
+
+Un contrôleur PID (ou un contrôleur proportionnel dans certains cas) est ensuite utilisé pour ajuster la commande de courant. Ce contrôleur permet de moduler le signal PWM appliqué au moteur, afin de réguler le courant et de maintenir la valeur désirée en fonction de l\textquotesingle{}erreur mesurée.\hypertarget{md__r_e_a_d_m_e_autotoc_md34}{}\doxysection{\texorpdfstring{Conclusion}{Conclusion}}\label{md__r_e_a_d_m_e_autotoc_md34}
+La conclusion de cette partie est que l\textquotesingle{}asservissement en vitesse et en courant est essentiel pour assurer un contrôle précis et stable du moteur. L\textquotesingle{}asservissement en vitesse permet de maintenir la vitesse du moteur à la valeur souhaitée, en ajustant le signal de commande via un contrôleur PID. De même, l\textquotesingle{}asservissement en courant régule la puissance délivrée au moteur, évitant ainsi les surcharges et garantissant des performances optimales. Ces deux boucles de contrôle, basées sur les mesures de la vitesse et du courant, contribuent à un fonctionnement fiable et sécurisé du moteur dans diverses conditions d\textquotesingle{}exploitation. 

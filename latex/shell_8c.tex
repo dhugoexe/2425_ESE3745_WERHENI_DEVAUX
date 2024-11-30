@@ -1,0 +1,267 @@
+\doxysection{Core/\+Src/mylibs/shell.c File Reference}
+\hypertarget{shell_8c}{}\label{shell_8c}\index{Core/Src/mylibs/shell.c@{Core/Src/mylibs/shell.c}}
+{\ttfamily \#include "{}usart.\+h"{}}\newline
+{\ttfamily \#include "{}mylibs/shell.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}tim.\+h"{}}\newline
+{\ttfamily \#include "{}adc.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{shell_8c_ac2cd96d53dd3ba6407db6766c3d92b26}{MAX\+\_\+\+SPEED}}~99
+\item 
+\#define \mbox{\hyperlink{shell_8c_ad5f5efaa5cb771bd06da4bfe6046809e}{MIN\+\_\+\+SPEED}}~1
+\item 
+\#define \mbox{\hyperlink{shell_8c_a0f938433fe1c95e71fb24cd6fc65dd08}{DUTY\+\_\+\+CYCLE\+\_\+50}}~50
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{shell_8c_a2ad7fa7d1addddf1a4249aab4e5d5a2d}{set\+Speed}} (uint8\+\_\+t \mbox{\hyperlink{shell_8c_a601da5d4c826b7a89a35bb2751007814}{speed}})
+\item 
+void \mbox{\hyperlink{shell_8c_a578d031662c0f01c5c34857a6cab5a1f}{set\+PWM}} (int \mbox{\hyperlink{shell_8c_a601da5d4c826b7a89a35bb2751007814}{speed}})
+\item 
+void \mbox{\hyperlink{shell_8c_a1e1a7212cd1e25d36ce85620f03f996e}{Shell\+\_\+\+Init}} (void)
+\item 
+void \mbox{\hyperlink{shell_8c_a9f70d5542e7f7f470ff7cd7d482caeb7}{Shell\+\_\+\+Loop}} (void)
+\item 
+void \mbox{\hyperlink{shell_8c_ae494a9643f29b87d6d81e5264e60e57b}{HAL\+\_\+\+UART\+\_\+\+Rx\+Cplt\+Callback}} (UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}huart)
+\item 
+void \mbox{\hyperlink{shell_8c_af20a88180db1113be1e89266917d148b}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hadc)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a8b893859891afe33d4bba72ba06fd381}{prompt}} \mbox{[}$\,$\mbox{]} ="{}user@Nucleo-\/STM32\+G474\+RET6$>$$>$"{}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a835573497a60b314a9bf5a6fcac9602a}{started}} \mbox{[}$\,$\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a98a2c452a5e7053154e9f49a4cad4e98}{newline}} \mbox{[}$\,$\mbox{]} ="{}\textbackslash{}r\textbackslash{}n"{}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a73072efaa96faae50fbceb96dc409a43}{backspace}} \mbox{[}$\,$\mbox{]} ="{}\textbackslash{}b \textbackslash{}b"{}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a25205e7c6d817620c1d9f7351a817a04}{cmd\+Not\+Found}} \mbox{[}$\,$\mbox{]} ="{}Command not found\textbackslash{}r\textbackslash{}n"{}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a438d322744fd2053e4b031aea2ad1cbe}{brian}} \mbox{[}$\,$\mbox{]} ="{}Brian is in the kitchen\textbackslash{}r\textbackslash{}n"{}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a9f01ffb72325e6328a2239d6de7f4abc}{uart\+Rx\+Received}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a2542ac6d4440b9e1c4a6435c55c79df3}{uart\+Rx\+Buffer}} \mbox{[}UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a3f98e2db2fa0d8f0cfd87b887576207f}{uart\+Tx\+Buffer}} \mbox{[}UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{shell_8c_af9364f6fe09692c0043b6ba42511a515}{speed\+\_\+value}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_a601da5d4c826b7a89a35bb2751007814}{speed}} \mbox{[}50\mbox{]}
+\item 
+char \mbox{\hyperlink{shell_8c_a755c320507955b333af8919b434c80dd}{cmd\+Buffer}} \mbox{[}CMD\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\item 
+int \mbox{\hyperlink{shell_8c_a53cf6ebd0848970afbf70c176bec9314}{idx\+\_\+cmd}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{shell_8c_a097621c7310da407a3cc4a6ae4568c56}{argv}} \mbox{[}MAX\+\_\+\+ARGS\mbox{]}
+\item 
+int \mbox{\hyperlink{shell_8c_ad1447518f4372828b8435ae82e48499e}{argc}} = 0
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{shell_8c_a1d71425d9df28667d528833a4db10432}{token}}
+\item 
+int \mbox{\hyperlink{shell_8c_a83a0d9b47b936e62d1d68aea902883ac}{new\+Cmd\+Ready}} = 0
+\item 
+Current\+\_\+\+Measure\+\_\+t \mbox{\hyperlink{shell_8c_a2bb997db3d90b3a247c3e4bf6686718a}{current\+Measure}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shell_8c_af2762fb61c0d7a4cca1d7f37dde7ea31}{conversion\+Complete}} =0
+\item 
+float \mbox{\hyperlink{shell_8c_a4a59bc8fe52e4c1ec788da12236e3feb}{offset\+\_\+current}} =2.\+5268
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{shell_8c_a0f938433fe1c95e71fb24cd6fc65dd08}\index{shell.c@{shell.c}!DUTY\_CYCLE\_50@{DUTY\_CYCLE\_50}}
+\index{DUTY\_CYCLE\_50@{DUTY\_CYCLE\_50}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{DUTY\_CYCLE\_50}{DUTY\_CYCLE\_50}}
+{\footnotesize\ttfamily \label{shell_8c_a0f938433fe1c95e71fb24cd6fc65dd08} 
+\#define DUTY\+\_\+\+CYCLE\+\_\+50~50}
+
+\Hypertarget{shell_8c_ac2cd96d53dd3ba6407db6766c3d92b26}\index{shell.c@{shell.c}!MAX\_SPEED@{MAX\_SPEED}}
+\index{MAX\_SPEED@{MAX\_SPEED}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_SPEED}{MAX\_SPEED}}
+{\footnotesize\ttfamily \label{shell_8c_ac2cd96d53dd3ba6407db6766c3d92b26} 
+\#define MAX\+\_\+\+SPEED~99}
+
+\Hypertarget{shell_8c_ad5f5efaa5cb771bd06da4bfe6046809e}\index{shell.c@{shell.c}!MIN\_SPEED@{MIN\_SPEED}}
+\index{MIN\_SPEED@{MIN\_SPEED}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{MIN\_SPEED}{MIN\_SPEED}}
+{\footnotesize\ttfamily \label{shell_8c_ad5f5efaa5cb771bd06da4bfe6046809e} 
+\#define MIN\+\_\+\+SPEED~1}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{shell_8c_af20a88180db1113be1e89266917d148b}\index{shell.c@{shell.c}!HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}}
+\index{HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{HAL\_ADC\_ConvCpltCallback()}{HAL\_ADC\_ConvCpltCallback()}}
+{\footnotesize\ttfamily \label{shell_8c_af20a88180db1113be1e89266917d148b} 
+void HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback (\begin{DoxyParamCaption}\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{hadc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{shell_8c_ae494a9643f29b87d6d81e5264e60e57b}\index{shell.c@{shell.c}!HAL\_UART\_RxCpltCallback@{HAL\_UART\_RxCpltCallback}}
+\index{HAL\_UART\_RxCpltCallback@{HAL\_UART\_RxCpltCallback}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{HAL\_UART\_RxCpltCallback()}{HAL\_UART\_RxCpltCallback()}}
+{\footnotesize\ttfamily \label{shell_8c_ae494a9643f29b87d6d81e5264e60e57b} 
+void HAL\+\_\+\+UART\+\_\+\+Rx\+Cplt\+Callback (\begin{DoxyParamCaption}\item[{UART\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{huart}{}\end{DoxyParamCaption})}
+
+\Hypertarget{shell_8c_a578d031662c0f01c5c34857a6cab5a1f}\index{shell.c@{shell.c}!setPWM@{setPWM}}
+\index{setPWM@{setPWM}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{setPWM()}{setPWM()}}
+{\footnotesize\ttfamily \label{shell_8c_a578d031662c0f01c5c34857a6cab5a1f} 
+void set\+PWM (\begin{DoxyParamCaption}\item[{int}]{speed}{}\end{DoxyParamCaption})}
+
+\Hypertarget{shell_8c_a2ad7fa7d1addddf1a4249aab4e5d5a2d}\index{shell.c@{shell.c}!setSpeed@{setSpeed}}
+\index{setSpeed@{setSpeed}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{setSpeed()}{setSpeed()}}
+{\footnotesize\ttfamily \label{shell_8c_a2ad7fa7d1addddf1a4249aab4e5d5a2d} 
+int set\+Speed (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{speed}{}\end{DoxyParamCaption})}
+
+\Hypertarget{shell_8c_a1e1a7212cd1e25d36ce85620f03f996e}\index{shell.c@{shell.c}!Shell\_Init@{Shell\_Init}}
+\index{Shell\_Init@{Shell\_Init}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{Shell\_Init()}{Shell\_Init()}}
+{\footnotesize\ttfamily \label{shell_8c_a1e1a7212cd1e25d36ce85620f03f996e} 
+void Shell\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{shell_8c_a9f70d5542e7f7f470ff7cd7d482caeb7}\index{shell.c@{shell.c}!Shell\_Loop@{Shell\_Loop}}
+\index{Shell\_Loop@{Shell\_Loop}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{Shell\_Loop()}{Shell\_Loop()}}
+{\footnotesize\ttfamily \label{shell_8c_a9f70d5542e7f7f470ff7cd7d482caeb7} 
+void Shell\+\_\+\+Loop (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{shell_8c_ad1447518f4372828b8435ae82e48499e}\index{shell.c@{shell.c}!argc@{argc}}
+\index{argc@{argc}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{argc}{argc}}
+{\footnotesize\ttfamily \label{shell_8c_ad1447518f4372828b8435ae82e48499e} 
+int argc = 0}
+
+\Hypertarget{shell_8c_a097621c7310da407a3cc4a6ae4568c56}\index{shell.c@{shell.c}!argv@{argv}}
+\index{argv@{argv}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{argv}{argv}}
+{\footnotesize\ttfamily \label{shell_8c_a097621c7310da407a3cc4a6ae4568c56} 
+char\texorpdfstring{$\ast$}{*} argv\mbox{[}MAX\+\_\+\+ARGS\mbox{]}}
+
+\Hypertarget{shell_8c_a73072efaa96faae50fbceb96dc409a43}\index{shell.c@{shell.c}!backspace@{backspace}}
+\index{backspace@{backspace}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{backspace}{backspace}}
+{\footnotesize\ttfamily \label{shell_8c_a73072efaa96faae50fbceb96dc409a43} 
+uint8\+\_\+t backspace\mbox{[}$\,$\mbox{]} ="{}\textbackslash{}b \textbackslash{}b"{}}
+
+\Hypertarget{shell_8c_a438d322744fd2053e4b031aea2ad1cbe}\index{shell.c@{shell.c}!brian@{brian}}
+\index{brian@{brian}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{brian}{brian}}
+{\footnotesize\ttfamily \label{shell_8c_a438d322744fd2053e4b031aea2ad1cbe} 
+uint8\+\_\+t brian\mbox{[}$\,$\mbox{]} ="{}Brian is in the kitchen\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{shell_8c_a755c320507955b333af8919b434c80dd}\index{shell.c@{shell.c}!cmdBuffer@{cmdBuffer}}
+\index{cmdBuffer@{cmdBuffer}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{cmdBuffer}{cmdBuffer}}
+{\footnotesize\ttfamily \label{shell_8c_a755c320507955b333af8919b434c80dd} 
+char cmd\+Buffer\mbox{[}CMD\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}}
+
+\Hypertarget{shell_8c_a25205e7c6d817620c1d9f7351a817a04}\index{shell.c@{shell.c}!cmdNotFound@{cmdNotFound}}
+\index{cmdNotFound@{cmdNotFound}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{cmdNotFound}{cmdNotFound}}
+{\footnotesize\ttfamily \label{shell_8c_a25205e7c6d817620c1d9f7351a817a04} 
+uint8\+\_\+t cmd\+Not\+Found\mbox{[}$\,$\mbox{]} ="{}Command not found\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{shell_8c_af2762fb61c0d7a4cca1d7f37dde7ea31}\index{shell.c@{shell.c}!conversionComplete@{conversionComplete}}
+\index{conversionComplete@{conversionComplete}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{conversionComplete}{conversionComplete}}
+{\footnotesize\ttfamily \label{shell_8c_af2762fb61c0d7a4cca1d7f37dde7ea31} 
+uint8\+\_\+t conversion\+Complete =0}
+
+\Hypertarget{shell_8c_a2bb997db3d90b3a247c3e4bf6686718a}\index{shell.c@{shell.c}!currentMeasure@{currentMeasure}}
+\index{currentMeasure@{currentMeasure}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{currentMeasure}{currentMeasure}}
+{\footnotesize\ttfamily \label{shell_8c_a2bb997db3d90b3a247c3e4bf6686718a} 
+Current\+\_\+\+Measure\+\_\+t current\+Measure\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{shell_8c_a53cf6ebd0848970afbf70c176bec9314}\index{shell.c@{shell.c}!idx\_cmd@{idx\_cmd}}
+\index{idx\_cmd@{idx\_cmd}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{idx\_cmd}{idx\_cmd}}
+{\footnotesize\ttfamily \label{shell_8c_a53cf6ebd0848970afbf70c176bec9314} 
+int idx\+\_\+cmd}
+
+\Hypertarget{shell_8c_a83a0d9b47b936e62d1d68aea902883ac}\index{shell.c@{shell.c}!newCmdReady@{newCmdReady}}
+\index{newCmdReady@{newCmdReady}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{newCmdReady}{newCmdReady}}
+{\footnotesize\ttfamily \label{shell_8c_a83a0d9b47b936e62d1d68aea902883ac} 
+int new\+Cmd\+Ready = 0}
+
+\Hypertarget{shell_8c_a98a2c452a5e7053154e9f49a4cad4e98}\index{shell.c@{shell.c}!newline@{newline}}
+\index{newline@{newline}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{newline}{newline}}
+{\footnotesize\ttfamily \label{shell_8c_a98a2c452a5e7053154e9f49a4cad4e98} 
+uint8\+\_\+t newline\mbox{[}$\,$\mbox{]} ="{}\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{shell_8c_a4a59bc8fe52e4c1ec788da12236e3feb}\index{shell.c@{shell.c}!offset\_current@{offset\_current}}
+\index{offset\_current@{offset\_current}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{offset\_current}{offset\_current}}
+{\footnotesize\ttfamily \label{shell_8c_a4a59bc8fe52e4c1ec788da12236e3feb} 
+float offset\+\_\+current =2.\+5268}
+
+\Hypertarget{shell_8c_a8b893859891afe33d4bba72ba06fd381}\index{shell.c@{shell.c}!prompt@{prompt}}
+\index{prompt@{prompt}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{prompt}{prompt}}
+{\footnotesize\ttfamily \label{shell_8c_a8b893859891afe33d4bba72ba06fd381} 
+uint8\+\_\+t prompt\mbox{[}$\,$\mbox{]} ="{}user@Nucleo-\/STM32\+G474\+RET6$>$$>$"{}}
+
+\Hypertarget{shell_8c_a601da5d4c826b7a89a35bb2751007814}\index{shell.c@{shell.c}!speed@{speed}}
+\index{speed@{speed}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{shell_8c_a601da5d4c826b7a89a35bb2751007814} 
+uint8\+\_\+t speed\mbox{[}50\mbox{]}}
+
+\Hypertarget{shell_8c_af9364f6fe09692c0043b6ba42511a515}\index{shell.c@{shell.c}!speed\_value@{speed\_value}}
+\index{speed\_value@{speed\_value}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{speed\_value}{speed\_value}}
+{\footnotesize\ttfamily \label{shell_8c_af9364f6fe09692c0043b6ba42511a515} 
+uint16\+\_\+t speed\+\_\+value}
+
+\Hypertarget{shell_8c_a835573497a60b314a9bf5a6fcac9602a}\index{shell.c@{shell.c}!started@{started}}
+\index{started@{started}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{started}{started}}
+{\footnotesize\ttfamily \label{shell_8c_a835573497a60b314a9bf5a6fcac9602a} 
+uint8\+\_\+t started\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n|\ Welcome\ on\ Nucleo-\/STM32G474\ |"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+
+\end{DoxyCode}
+\Hypertarget{shell_8c_a1d71425d9df28667d528833a4db10432}\index{shell.c@{shell.c}!token@{token}}
+\index{token@{token}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{token}{token}}
+{\footnotesize\ttfamily \label{shell_8c_a1d71425d9df28667d528833a4db10432} 
+char\texorpdfstring{$\ast$}{*} token}
+
+\Hypertarget{shell_8c_a2542ac6d4440b9e1c4a6435c55c79df3}\index{shell.c@{shell.c}!uartRxBuffer@{uartRxBuffer}}
+\index{uartRxBuffer@{uartRxBuffer}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{uartRxBuffer}{uartRxBuffer}}
+{\footnotesize\ttfamily \label{shell_8c_a2542ac6d4440b9e1c4a6435c55c79df3} 
+uint8\+\_\+t uart\+Rx\+Buffer\mbox{[}UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}}
+
+\Hypertarget{shell_8c_a9f01ffb72325e6328a2239d6de7f4abc}\index{shell.c@{shell.c}!uartRxReceived@{uartRxReceived}}
+\index{uartRxReceived@{uartRxReceived}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{uartRxReceived}{uartRxReceived}}
+{\footnotesize\ttfamily \label{shell_8c_a9f01ffb72325e6328a2239d6de7f4abc} 
+uint8\+\_\+t uart\+Rx\+Received}
+
+\Hypertarget{shell_8c_a3f98e2db2fa0d8f0cfd87b887576207f}\index{shell.c@{shell.c}!uartTxBuffer@{uartTxBuffer}}
+\index{uartTxBuffer@{uartTxBuffer}!shell.c@{shell.c}}
+\doxysubsubsection{\texorpdfstring{uartTxBuffer}{uartTxBuffer}}
+{\footnotesize\ttfamily \label{shell_8c_a3f98e2db2fa0d8f0cfd87b887576207f} 
+uint8\+\_\+t uart\+Tx\+Buffer\mbox{[}UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}}
+
